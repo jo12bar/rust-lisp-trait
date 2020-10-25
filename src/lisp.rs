@@ -4,7 +4,7 @@ use std::iter::Map;
 use std::ops::{Add, Div, Mul, Sub};
 
 pub mod prelude {
-    pub use super::{add, div, eval, mul, sub, Node};
+    pub use super::{add, div, eval, map, mul, reduce, sub, to_vec, Node};
 }
 
 /// A Lisp-ish node that evaluates to some value.
@@ -76,20 +76,6 @@ impl<A, R> Node for Box<dyn Fn(A) -> R> {
 }
 
 impl<T> Node for Box<T> {
-    type Return = T;
-    fn eval(self) -> Self::Return {
-        *self
-    }
-}
-
-impl<A, R> Node for &'static mut dyn Fn(A) -> R {
-    type Return = Self;
-    fn eval(self) -> Self::Return {
-        self
-    }
-}
-
-impl<T> Node for &'static mut T {
     type Return = T;
     fn eval(self) -> Self::Return {
         *self
