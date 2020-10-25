@@ -121,7 +121,7 @@ macro_rules! impl_lisp_fn_node {
 
     ($($postfix:literal),+ $(,)?) => {
         paste! {
-            /// Implement evaluation for functions that take 1 argument(s).
+            /// Implement evaluation for functions that take argument(s).
             impl<
                 F,
                 $([<Arg $postfix>],)+
@@ -159,7 +159,7 @@ mod gen_lisp_fn_node_impls_proc_macro {
     use super::*;
     use proc_macro::TokenStream;
 
-    const MAX_ARGS: usize = 30;
+    const MAX_ARGS: usize = 256;
 
     pub fn gen_lisp_fn_node_impls(_input: TokenStream) -> TokenStream {
         let mut macro_calls: Vec<String> = Vec::with_capacity(MAX_ARGS + 1);
